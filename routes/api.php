@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/user/{id}', function ($id) {
+    return response()->json(['user' => \App\User::find($id)]);
 });
