@@ -2,7 +2,7 @@
 
 @section('page_title', 'Agregar asiento')
 
-@if(auth()->user()->hasPermission('browse_aporteafiliado'))
+@if(auth()->user()->hasPermission('browse_asientos'))
 
 @section('page_header')
     <h1 class="page-title">
@@ -21,7 +21,7 @@
                                     <h4>Busqueda Cuentas</h4>
                                     <br>
                                     <div class="form-group">
-                                        <label>Cuentas <span style="color:red;"v-show="form.idcuenta==0">(*Seleccione)</span></label>
+                                        <label>Cuentas <span style="color:red;"v-show="form.cuenta_id==0">(*Seleccione)</span></label>
                                         <div class="form-inline">
                                             <input  type="text"
                                                     v-model="form.codigobuscar"
@@ -38,7 +38,7 @@
                                     <h4>Datos Auxiliares</h4><br>
                                     <div class="col-md-6 form-group">
                                         <label>U.F.V.</label>
-                                       <input type="number" class="form-control" v-model="form.ufu">
+                                       <input type="number" class="form-control" v-model="form.ufv">
                                     </div>
                                     <div class="col-md-6 form-group">
                                         <label>Tipo de Cambio:</label>
@@ -65,16 +65,15 @@
                                                     </thead>
                                                     <tbody v-if="form.items.length>0">
                                                         <tr v-for="cuenta in form.items">
-                                                            </td>
                                                             <td v-text="cuenta.codigo">
                                                             </td>
                                                             <td v-text="cuenta.name">
                                                             </td>
                                                             <td>
-                                                                <input type="number" class="form-control" v-model="cuenta.debe" @keyup="cuenta.haber = 0">
+                                                                <input type="number" class="form-control" v-model="cuenta.debe" @keyup="cuenta.haber = 0.00">
                                                             </td>
                                                             <td>
-                                                                <input type="number" class="form-control" v-model="cuenta.haber" @keyup="cuenta.debe = 0">
+                                                                <input type="number" class="form-control" v-model="cuenta.haber" @keyup="cuenta.debe = 0.00">
                                                             </td>
                                                             <td>
                                                                 <button @click="remove(cuenta)" type="button" class="btn btn-danger btn-sm">
@@ -191,17 +190,17 @@
         window._form = {
 			tituloModal: 'Seleccione uno o varias cuentas',
             //variables para agregar al detalle de lacuenta
-            idcuenta: 0,
+            cuenta_id: 0,
             //fecha: '',
-            codigo: '',
+            code: '',
             cuenta:null,
             glosa: '',
-            debe: 0,
-            haber: 0,
+            debe: 0.00,
+            haber: 0.00,
             tipo: '',
             //fin-variables
             codigobuscar:'',
-            ufu: 0,
+            ufv: 0,
             tipo_cambio: 6.96,
             comprobante: null,
 			glosa: '',

@@ -57,5 +57,20 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('asientos','AsientosController');
     Route::post('add-comprobante/{id}','AsientosController@agregarcomprobante')->name('agregarcomprobante');
 
+     //ruta para buscar por codigo las cuentas
+     Route::get('buscarcuenta','AsientosController@buscarCuenta');
+     Route::get('listarcuentas','AsientosController@listarCuentas');
+     Route::post('printf/asiento/{id}', 'AsientosController@printf_asiento')->name('printf_asiento');
+
+     //rutas para reportes
+    Route::get('reports/lbdiario','ReporteController@lbdiario_index')->name('lbdiario_index');
+    Route::post('reports/lbdiario/list', 'ReporteController@lbdiario_generate');
+
+    Route::get('reports/lbmayor','ReporteController@lbmayor_index')->name('lbmayor_index');
+    Route::post('reports/lbmayor/list', 'ReporteController@lbmayor_generate');
+
+    Route::get('reports/balancegnral','ReporteController@balancegnral_index')->name('balancegnral_index');
+    Route::post('reports/balancegnral/list', 'ReporteController@balancegnral_generate');
+
 });
 
