@@ -38,5 +38,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::generateFor('blocks');
 
         Permission::generateFor('cuentas');
+
+        Permission::generateFor('asientos');
     }
 }
