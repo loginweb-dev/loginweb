@@ -65,7 +65,7 @@
                                                     </thead>
                                                     <tbody v-if="form.items.length>0">
                                                         <tr v-for="cuenta in form.items">
-                                                            <td v-text="cuenta.codigo">
+                                                            <td v-text="cuenta.code">
                                                             </td>
                                                             <td v-text="cuenta.name">
                                                             </td>
