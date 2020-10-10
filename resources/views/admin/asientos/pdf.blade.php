@@ -62,19 +62,19 @@
         </table>
         <table width="100%" border="1px" cellspacing="0" cellpadding="2" style="margin-top: -10px">
             <tr style="background-color:#022A81;color:#fff">
-                <td align="center" width="80px"><b>Fecha&deg;</b></td>
                 {{-- <td align="center" width="80px"><b>Código</b></td> --}}
                 <td align="center" width="50px"><b>Codigo</b></td>
                 <td align="center" ><b>Detalle Cuenta</b></td>
+                <td align="center" ><b>Glosa</b></td>
                 <td align="center" width="100px"><b>Debe</b></td>
                 <td align="center" width="100px"><b>Haber</b></td>
 
             </tr>
             @forelse ($asiento->items as $item)
                 <tr>
-                    <td>{!! \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') !!}</td>
                     <td>{{ $item->code }}</td>
                     <td>{{ $item->name }}</td>
+                    <td>{{ $item->glosa }}</td>
                     <td>{{number_format($item->debe, 2, ',', '.')}}</td>
                     <td>{{number_format($item->haber, 2, ',', '.')}}</td>
                 </tr>

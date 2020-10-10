@@ -9,7 +9,7 @@ class Asiento extends Model
 {
     use HasManyRelation;
 
-    protected $fillable=['user_id','ufv','tipo_cambio','glosa','total_haber','total_debe','comprobante'];
+    protected $fillable=['user_id','ufv','tipo_cambio','glosa','total_haber','total_debe','comprobante','estado_id'];
 
     public function user(){
      return $this->belongsTo(\App\User::class);
@@ -18,5 +18,9 @@ class Asiento extends Model
     public function items()
     {
         return $this->hasMany(DetalleAsiento::class);
+    }
+
+    public function estado () {
+        return $this->belongsTo(Estado::class);
     }
 }

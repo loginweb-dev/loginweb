@@ -60,6 +60,7 @@
                                                             <th>Cta:</th>
                                                             <th>Debe</th>
                                                             <th>Haber</th>
+                                                            <th>Glosa:</th>
                                                             <th>Opciones</th>
                                                         </tr>
                                                     </thead>
@@ -74,6 +75,10 @@
                                                             </td>
                                                             <td>
                                                                 <input type="number" class="form-control" v-model="cuenta.haber" @keyup="cuenta.debe = 0.00">
+                                                            </td>
+                                                            <td>
+                                                                <textarea rows="3" class="form-control" v-model="cuenta.glosa">
+                                                                </textarea>
                                                             </td>
                                                             <td>
                                                                 <button @click="remove(cuenta)" type="button" class="btn btn-danger btn-sm">
@@ -115,10 +120,9 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label>Glosa</label>
-                                    <textarea name="glosa"  rows="5" class="form-control ckeditor" v-model="form.glosa">
+                                    <textarea name="glosa"  rows="5" class="form-control" v-model="form.glosa">
                                     </textarea>
-                                    <input type="button" value="Registrar para Aprobación" class="btn btn-primary" @click="crearAsiento" :disabled="!totalesIguales">
-                                    <input type="button" value="Guardar en borrador" class="btn btn-success" @click="crearAsientoRev">
+                                    <input type="button" value="Registrar" class="btn btn-info" @click="storeAsiento">
                                     <a href="{{url()->previous()}}" class="btn btn-default">Cancel</a>
                                 </div>
                             </div>
@@ -185,7 +189,7 @@
 @section('javascript')
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
-    <script src="//cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>
+    <script src="//cdn.ckeditor.com/4.15.0/full/ckeditor.js"></script>
     <script src="{{ url('plugins/formatSelect2.js') }}"></script>
     <script type="text/javascript">
         Vue.http.headers.common['X-CSRF-TOKEN'] = '{{csrf_token()}}';
@@ -196,7 +200,7 @@
             //fecha: '',
             code: '',
             cuenta:null,
-            glosa: '',
+            glosaitem: '',
             debe: 0.00,
             haber: 0.00,
             tipo: '',

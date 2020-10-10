@@ -18,7 +18,8 @@ class AsientosController extends Controller
     {
         $search = request('search');
         $query = $search ? "ufv like '%$search%' or tipo_cambio like '%$search%' or glosa like '%$search%'" : 1;
-        $asientos = Asiento::whereRaw($query)
+        $asientos = Asiento::with('estado')
+                            ->whereRaw($query)
                             ->paginate(10);
         return view('admin.asientos.index', compact('asientos', 'search'));
     }
@@ -47,12 +48,7 @@ class AsientosController extends Controller
         $asiento->tipo_cambio = $request->tipo;
         $asiento->glosa = $request->glosa;
         $estado = Estado::where('deleted_at',null)->first();
-        if($request->rev){
-            $asiento->estado_id = $estado->id;
-        }else{
-            $asiento->estado_id = $estado->id + 1;
-        }
-
+        $asiento->estado_id = $estado->id;
         $asiento->total_haber = collect($request->items)->sum(function($item) {
             return $item['haber'];
         });
@@ -173,6 +169,16 @@ class AsientosController extends Controller
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($vista)->setPaper('letter');
         return $pdf->stream();
+    }
 
+    public function aprobar_asiento($id){
+     $asiento = Asiento::findOrFail($id);
+     $estado = Estado::where('id','>',$asiento->estado_id)->first();
+     $asiento->estado_id = $estado->id;
+     $asiento->update();
+     return back()->with([
+        'message' => "El asiento, se aprobo correctamente.",
+        'alert-type' => 'info'
+        ]);
     }
 }

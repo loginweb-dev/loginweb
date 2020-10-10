@@ -58,7 +58,7 @@ var app = new Vue({
                     //fecha: me.form.fecha,
                     code: me.form.code,
                     name: me.form.cuenta,
-                    //glosa: me.form.glosa,
+                    glosa: me.form.glosaitem,
                     debe: parseFloat(me.form.debe),
                     haber: parseFloat(me.form.haber),
                     tipo: me.form.tipo
@@ -87,6 +87,7 @@ var app = new Vue({
             //fecha: me.form.fecha,
             code: me.form.code,
             name: me.form.cuenta,
+            glosa: me.form.glosaitem,
             debe: parseFloat(me.form.debe),
             haber: parseFloat(me.form.haber),
             tipo: me.form.tipo
@@ -126,7 +127,7 @@ var app = new Vue({
             //fecha: me.form.fecha,
             code: data['code'],
             name: data['name'],
-           // glosa: me.form.glosa,
+            glosa: me.form.glosaitem,
             debe: parseFloat(me.form.debe),
             haber: parseFloat(me.form.haber),
             tipo: data['tipo']
@@ -138,19 +139,10 @@ var app = new Vue({
                 //me.itemsarray( me.form1.tomos);
 
       },
-        crearAsiento: function(){
-            let rev = 0;
-            this.storeAsiento(rev);
-        },
-        crearAsientoRev: function(){
-            let rev = 1;
-            this.storeAsiento(rev);
-        },
-        storeAsiento: function(rev) {
+        storeAsiento: function() {
             var url = '/admin/asientos';
             //var url = '/cerma/public/admin/asientos';
             this.$http.post(url,{
-                'rev' : rev,
                 'items': this.form.items,
                 'ufv': this.form.ufv,
                 'tipo': this.form.tipo_cambio,

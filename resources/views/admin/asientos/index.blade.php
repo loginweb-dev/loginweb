@@ -18,6 +18,7 @@
 @section('content')
     <div class="page-content browse container-fluid">
         @include('voyager::alerts')
+        
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-bordered">
@@ -42,10 +43,14 @@
                                         <th>Fecha</th>
                                         <th>Glosa</th>
                                         <th>Comprobante</th>
+                                        <th>Estado</th>
                                         <th class="text-right">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                     $ultimo = \App\Models\Estado::latest()->first()->id;
+                                    @endphp
                                     @forelse ($asientos as $asiento)
                                     <tr>
                                         <td>
@@ -63,10 +68,14 @@
                                             <label>Sin Imagen</label>
                                             @endif
                                         </td>
+                                        <td>{{ $asiento->estado->name}}</td>
                                         <td class="no-sort no-click bread-actions text-right">
-                                            {{-- <a href="#" title="Ver" class="btn btn-sm btn-warning view">
-                                                <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm">Ver</span>
-                                            </a> --}}
+                                            @if($asiento->estado_id != $ultimo)
+                                            <a href="javascript:;" title="Ver" class="btn btn-sm btn-warning aprobe" data-id="{{$asiento->id}}">
+                                                <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm">Aprobar</span>
+                                            </a> 
+                                            @endif
+                                            
                                             {{-- <button title="Imprimir" onclick="generar_recibo({{ $asiento->id }})" class="btn btn-sm btn-primary edit">
                                                 <i class="voyager-polaroid"></i> <span class="hidden-xs hidden-sm">Imprimir</span>
                                             </button>--}}
@@ -118,7 +127,26 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
-    {{-- modal para agregar comprobante --}}
+    {{-- modal para aprobar asiento --}}
+     <div class="modal modal-info fade" tabindex="-1" id="modal_aprobacion" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="{{ __('voyager::generic.close') }}"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><i class="voyager-archive"></i>Quieres aprobar este asiento ?</h4>
+                </div>
+                <div class="modal-footer">
+                    <form action="#" id="aprob_form" method="POST" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <input type="submit" class="btn btn-info pull-right delete-confirm" value="{{ __('Si aprobar') }}">
+                    </form>
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">{{ __('voyager::generic.cancel') }}</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    {{-- modal para ver comprobante --}}
     <div class="modal modal-info fade" tabindex="-1" id="modal_imagen" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -157,6 +185,10 @@
         $('td').on('click', '.view', function (e) {
             $('#modal_imagen').modal('show');
             $('#img-comprobante').attr('src','{{ url('storage') }}/'+$(this).data('imagen'));
+        });
+        $('td').on('click', '.aprobe', function (e) {
+            $('#aprob_form')[0].action = '{{route('aprobar_asiento', ['id' => '__id'])}}'.replace('__id', $(this).data('id'));
+            $('#modal_aprobacion').modal('show');
         });
     </script>
 @stop

@@ -20,7 +20,7 @@ class EstadosTableSeeder extends Seeder
             0 =>
             array (
                 'id' => 1,
-                'name' => 'Borrador',
+                'name' => 'BORRADOR',
                 'created_at' => '2020-10-09 21:32:16',
                 'updated_at' => '2020-10-09 21:32:16',
                 'deleted_at' => NULL,
@@ -28,7 +28,7 @@ class EstadosTableSeeder extends Seeder
             1 =>
             array (
                 'id' => 2,
-                'name' => 'Revisión',
+                'name' => 'REVISION',
                 'created_at' => '2020-10-09 21:32:16',
                 'updated_at' => '2020-10-09 21:32:16',
                 'deleted_at' => NULL,
@@ -36,7 +36,7 @@ class EstadosTableSeeder extends Seeder
             2 =>
             array (
                 'id' => 3,
-                'name' => 'Aprobación',
+                'name' => 'APROBACION',
                 'created_at' => '2020-10-09 21:32:22',
                 'updated_at' => '2020-10-09 21:32:22',
                 'deleted_at' => NULL,
