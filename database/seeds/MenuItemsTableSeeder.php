@@ -209,6 +209,22 @@ class MenuItemsTableSeeder extends Seeder
                 'route' => 'balancegnral_index',
                 'parameters' => NULL,
             ),
+            12 => 
+            array (
+                'id' => 13,
+                'menu_id' => 1,
+                'title' => 'Estados de Asientos',
+                'url' => '',
+                'target' => '_self',
+                'icon_class' => 'voyager-forward',
+                'color' => '#000000',
+                'parent_id' => NULL,
+                'order' => 4,
+                'created_at' => '2020-10-09 21:15:22',
+                'updated_at' => '2020-10-09 21:19:53',
+                'route' => 'voyager.estados.index',
+                'parameters' => 'null',
+            ),
         ));
         
         

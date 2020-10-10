@@ -115,9 +115,10 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label>Glosa</label>
-                                    <textarea name="glosa"  rows="5" class="form-control" v-model="form.glosa">
+                                    <textarea name="glosa"  rows="5" class="form-control ckeditor" v-model="form.glosa">
                                     </textarea>
-                                    <input type="button" value="Registrar" class="btn btn-primary" @click="crearAsiento" :disabled="!totalesIguales">
+                                    <input type="button" value="Registrar para Aprobación" class="btn btn-primary" @click="crearAsiento" :disabled="!totalesIguales">
+                                    <input type="button" value="Guardar en borrador" class="btn btn-success" @click="crearAsientoRev">
                                     <a href="{{url()->previous()}}" class="btn btn-default">Cancel</a>
                                 </div>
                             </div>
@@ -184,6 +185,7 @@
 @section('javascript')
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+    <script src="//cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>
     <script src="{{ url('plugins/formatSelect2.js') }}"></script>
     <script type="text/javascript">
         Vue.http.headers.common['X-CSRF-TOKEN'] = '{{csrf_token()}}';

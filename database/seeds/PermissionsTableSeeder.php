@@ -40,5 +40,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::generateFor('cuentas');
 
         Permission::generateFor('asientos');
+
+        Permission::generateFor('estados');
     }
 }

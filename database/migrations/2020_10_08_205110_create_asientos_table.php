@@ -22,6 +22,13 @@ class CreateAsientosTable extends Migration
             $table->decimal('total_haber',8,2);
             $table->text('glosa')->nullable();
             $table->string('comprobante', 255)->nullable();
+            $table->foreignId('estado_id')->constrained();
+            $table->foreignId('reviewer_id')
+                    ->nullable()
+                    ->constrained('users');
+            $table->foreignId('approver_id')
+                    ->nullable()
+                    ->constrained('users');
             $table->timestamps();
             $table->softDeletes();
         });
