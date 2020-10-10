@@ -40,10 +40,8 @@
             <tr>
                 <td width="30%" align="center" style="font-size:7px">
                     <img src="{{ setting('admin.icon_image') ? url('storage').'/'.setting('admin.icon_image') : url('images/icon.png') }}" alt="loginweb" width="60px"><br>
-                    <b >{{ setting('recibo.titulo') }}</b><br>
-                    <b>Telf: {{ setting('recibo.celular') }}</b><br>
-                    <b>{{setting('recibo.direccion')}}</b><br>
-                    <b>{{setting('recibo.localidad')}}</b><br>
+                    <b >{{ setting('admin.title') }}</b><br>
+                    <b>{{ setting('admin.description') }}</b><br>
                 </td>
                 <td width="70%" align="right"><span style="margin-bottom:0px;font-weight:bold;font-size:18px">ASIENTO CONTABLE #{{ str_pad($asiento->id, 5, "0", STR_PAD_LEFT) }}</span></td>
                 {{-- <td width="30%" align="right"><span style="font-weight:bold;color:red;font-size:15px;"></span></td> --}}
@@ -75,7 +73,7 @@
             @forelse ($asiento->items as $item)
                 <tr>
                     <td>{!! \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') !!}</td>
-                    <td>{{ $item->codigo }}</td>
+                    <td>{{ $item->code }}</td>
                     <td>{{ $item->name }}</td>
                     <td>{{number_format($item->debe, 2, ',', '.')}}</td>
                     <td>{{number_format($item->haber, 2, ',', '.')}}</td>
@@ -97,17 +95,7 @@
                     <td colspan="5"><b> Son: {{ NumerosEnLetras::convertir(number_format($asiento->total_debe, 2, '.', ''),'Bolivianos',false,'Centavos') }} </b></td>
                 </tr>
         </table>
-        @if ($asiento->comprobante)
-        <table width="100%" align="center" style="margin-top: 30px">
-            <tr>
-                <td align="center" width="100%">
-                    <img src="{{url('storage').'/'.$asiento->comprobante}}" alt="comprobante" width="500px">
-                </td>
-            </tr>
-        </table>
-        @endif
 
-        
         <div style="position: fixed; bottom: 120px; left: 0px; right: 0px">
             <table width="100%" align="center" border="1" cellspacing="0" cellpadding="5">
                 <tr>

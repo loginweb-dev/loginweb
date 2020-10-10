@@ -138,10 +138,19 @@ var app = new Vue({
                 //me.itemsarray( me.form1.tomos);
 
       },
-        crearAsiento: function() {
+        crearAsiento: function(){
+            let rev = 0;
+            this.storeAsiento(rev);
+        },
+        crearAsientoRev: function(){
+            let rev = 1;
+            this.storeAsiento(rev);
+        },
+        storeAsiento: function(rev) {
             var url = '/admin/asientos';
             //var url = '/cerma/public/admin/asientos';
             this.$http.post(url,{
+                'rev' : rev,
                 'items': this.form.items,
                 'ufv': this.form.ufv,
                 'tipo': this.form.tipo_cambio,

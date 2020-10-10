@@ -125,6 +125,24 @@ class DataTypesTableSeeder extends Seeder
                 'created_at' => '2020-10-08 21:21:20',
                 'updated_at' => '2020-10-08 21:22:07',
             ),
+            6 => 
+            array (
+                'id' => 8,
+                'name' => 'estados',
+                'slug' => 'estados',
+                'display_name_singular' => 'Estado',
+                'display_name_plural' => 'Estados',
+                'icon' => 'voyager-forward',
+                'model_name' => 'App\\Models\\Estado',
+                'policy_name' => NULL,
+                'controller' => NULL,
+                'description' => NULL,
+                'generate_permissions' => 1,
+                'server_side' => 0,
+                'details' => '{"order_column":"id","order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}',
+                'created_at' => '2020-10-09 21:15:22',
+                'updated_at' => '2020-10-09 21:22:36',
+            ),
         ));
         
         

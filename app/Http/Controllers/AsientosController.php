@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Asiento;
+use App\Models\Estado;
+
 use Illuminate\Http\Request;
 use DB;
 class AsientosController extends Controller
@@ -44,6 +46,13 @@ class AsientosController extends Controller
         $asiento->ufv = $request->ufv;
         $asiento->tipo_cambio = $request->tipo;
         $asiento->glosa = $request->glosa;
+        $estado = Estado::where('deleted_at',null)->first();
+        if($request->rev){
+            $asiento->estado_id = $estado->id;
+        }else{
+            $asiento->estado_id = $estado->id + 1;
+        }
+
         $asiento->total_haber = collect($request->items)->sum(function($item) {
             return $item['haber'];
         });
