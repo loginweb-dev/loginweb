@@ -4,7 +4,9 @@
   <!--Navbar-->
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
     <div class="container">
-      <a class="navbar-brand" href="/"><strong>{{ setting('site.title') }}</strong></a>
+      <a class="navbar-brand" href="/">
+        <img src="https://mystorage.loginweb.dev/storage/Projects/loginweb/loginweb2.svg" height="30" alt="mdb logo" class="mb-3">     <strong>{{ setting('site.title') }}</strong>
+      </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7"
         aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -62,6 +64,7 @@
       <div class="container h-100 d-flex justify-content-center align-items-center">
         <div class="row flex-center pt-5 mt-3">
           <div class="col-md-12 col-lg-6 text-center text-md-left margins">
+              {{-- <img src="https://mystorage.loginweb.dev/storage/Projects/loginweb1.png" class=" img-fluid mx-auto d-block" alt="Responsive image" style="width: 200px"> --}}
             <div class="white-text">
               <h1 class="h1-responsive font-weight-bold wow fadeInLeft" data-wow-delay="0.3s">{{ $collection['title']['value'] }}</h1>
               <hr class="hr-light wow fadeInLeft" data-wow-delay="0.3s">
@@ -74,7 +77,7 @@
           </div>
 
           <div class="col-md-12 col-lg-6  wow fadeInRight" data-wow-delay="0.3s">
-            <img src="{{ voyager::Image($collection['image1']['value']) }}" alt="" class="img-fluid">
+            <img src="{{$collection['image1']['value'] != 'myimage.png' ? voyager::Image($collection['image1']['value']) : 'https://mystorage.loginweb.dev/storage/Projects/loginweb/header.png' }}" alt="" class="img-fluid">
           </div>
         </div>
       </div>

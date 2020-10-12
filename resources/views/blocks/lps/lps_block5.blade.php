@@ -33,8 +33,9 @@
                   <div class="testimonial">
                     <!--Avatar-->
                     <div class="avatar mx-auto">
-                      <img src="{{ voyager::Image($data->image1->value) }}"
-                        class="rounded-circle img-fluid">
+                      
+                      <img src="{{  $data->image1->value != 'image1.png' ? voyager::Image($data->image1->value) :'https://mystorage.loginweb.dev/storage/clientes/redimacons.png' }}"
+                        class="rounded img-fluid">
                     </div>
                     <!--Content-->
                     <h4 class="font-weight-bold mt-4">{{ $data->title1->value }}</h4>
@@ -57,8 +58,8 @@
                   <div class="testimonial">
                     <!--Avatar-->
                     <div class="avatar mx-auto">
-                      <img src="{{ voyager::Image($data->image2->value) }}"
-                        class="rounded-circle img-fluid">
+                      <img src="{{$data->image2->value != 'image2.png' ? voyager::Image($data->image2->value) :'https://mystorage.loginweb.dev/storage/clientes/tatu.jpg' }}"
+                        class="rounded  img-fluid">
                     </div>
                     <!--Content-->
                     <h4 class="font-weight-bold mt-4">{{ $data->title2->value }}</h4>
@@ -81,8 +82,8 @@
                   <div class="testimonial">
                     <!--Avatar-->
                     <div class="avatar mx-auto">
-                      <img src="{{ voyager::Image($data->image3->value) }}"
-                        class="rounded-circle img-fluid">
+                      <img src="{{ $data->image3->value != 'image3.png' ? voyager::Image($data->image3->value) :'https://mystorage.loginweb.dev/storage/clientes/el jinete.jpg' }}"
+                        class="rounded img-fluid">
                     </div>
                     <!--Content-->
                     <h4 class="font-weight-bold mt-4">{{ $data->title3->value }}</h4>
@@ -111,8 +112,8 @@
                   <div class="testimonial">
                     <!--Avatar-->
                     <div class="avatar mx-auto">
-                      <img src="{{ voyager::Image($data->image4->value) }}"
-                        class="rounded-circle img-fluid">
+                      <img src="{{  $data->image4->value != 'image4.png' ? voyager::Image($data->image4->value) :'https://mystorage.loginweb.dev/storage/clientes/cetbeni.png' }}"
+                        class="rounded img-fluid">
                     </div>
                     <!--Content-->
                     <h4 class="font-weight-bold mt-4">{{ $data->title4->value }}</h4>
@@ -135,8 +136,8 @@
                   <div class="testimonial">
                     <!--Avatar-->
                     <div class="avatar mx-auto">
-                      <img src="{{ voyager::Image($data->image5->value) }}"
-                        class="rounded-circle img-fluid">
+                      <img src="{{ $data->image5->value != 'image5.png' ? voyager::Image($data->image5->value) :'https://mystorage.loginweb.dev/storage/clientes/jairo sport.jpg' }}"
+                        class="rounded img-fluid">
                     </div>
                     <!--Content-->
                     <h4 class="font-weight-bold mt-4">{{ $data->title5->value }}</h4>
@@ -159,8 +160,8 @@
                   <div class="testimonial">
                     <!--Avatar-->
                     <div class="avatar mx-auto">
-                      <img src="{{ voyager::Image($data->image6->value) }}"
-                        class="rounded-circle img-fluid">
+                      <img src="{{ $data->image6->value != 'image6.png' ? voyager::Image($data->image6->value) :'https://mystorage.loginweb.dev/storage/clientes/live medic.png' }}"
+                        class="rounded img-fluid">
                     </div>
                     <!--Content-->
                     <h4 class="font-weight-bold mt-4">{{ $data->title6->value }}</h4>

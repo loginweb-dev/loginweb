@@ -37,7 +37,7 @@ class PageSeeder extends Seeder
                     'type' => 'text',
                     'name' => 'button_text1',
                     'label' => 'Texto Boton #1',
-                    'value' => 'DOWNLOAD',
+                    'value' => 'Consular',
                     'width' => 6
                 ],
                 'button_link1' => [
@@ -51,14 +51,14 @@ class PageSeeder extends Seeder
                     'type' => 'text',
                     'name' => 'button_text2',
                     'label' => 'Texto Boton #2',
-                    'value' => 'LEAR MORE',
+                    'value' => 'Ver Productos',
                     'width' => 6
                 ],
                 'button_link2' => [
                     'type' => 'text',
                     'name' => 'button_link2',
                     'label' => 'Link Text #2',
-                    'value' => '#',
+                    'value' => '#productos',
                     'width' => 6
                 ],
                 
@@ -540,14 +540,14 @@ class PageSeeder extends Seeder
                     'type'   => 'text',
                     'name'   => 'title_strong',
                     'label'  => 'Titulo en Negrita',
-                    'value'  => 'Our clients',
+                    'value'  => 'Nuestros Clientes',
                     'width'  => 6
                 ],
                 'title_default' => [
                     'type'  => 'text',
                     'name'  => 'title_default',
                     'label' => 'Titulo Normal',
-                    'value' => 'about us',
+                    'value' => 'Acerca de',
                     'width'  => 6
                 ],
                 'space' => [
@@ -565,7 +565,7 @@ class PageSeeder extends Seeder
                     'type'  => 'text',
                     'name'  => 'title1',
                     'label' => 'Titulo #1',
-                    'value' => 'Blake Dabney',
+                    'value' => 'REDIMACONS',
                     'width'  => 4
                 ],
                 'tag1' => [
@@ -597,7 +597,7 @@ class PageSeeder extends Seeder
                     'type'  => 'text',
                     'name'  => 'title2',
                     'label' => 'Titulo #2',
-                    'value' => 'Andrea Clay',
+                    'value' => 'PIZZAS TATU',
                     'width'  => 4
                 ],
                 'tag2' => [
@@ -629,7 +629,7 @@ class PageSeeder extends Seeder
                     'type'  => 'text',
                     'name'  => 'title3',
                     'label' => 'Titulo #3',
-                    'value' => 'Cami Gosse',
+                    'value' => 'EL JINETE',
                     'width'  => 4
                 ],
                 'tag3' => [
@@ -661,7 +661,7 @@ class PageSeeder extends Seeder
                     'type'  => 'text',
                     'name'  => 'title4',
                     'label' => 'Titulo #4',
-                    'value' => 'Bobby Haley',
+                    'value' => 'CET BENI',
                     'width'  => 4
                 ],
                 'tag4' => [
@@ -693,7 +693,7 @@ class PageSeeder extends Seeder
                     'type'  => 'text',
                     'name'  => 'title5',
                     'label' => 'Titulo #5 (250x250)',
-                    'value' => 'Elisa Janson',
+                    'value' => 'JAIRO SPORT',
                     'width'  => 4
                 ],
                 'tag5' => [
@@ -725,7 +725,7 @@ class PageSeeder extends Seeder
                     'type'  => 'text',
                     'name'  => 'title6',
                     'label' => 'Titulo #6',
-                    'value' => 'Rob Jacobs',
+                    'value' => 'LIVE MEDIC',
                     'width'  => 4
                 ],
                 'tag6' => [
@@ -742,6 +742,154 @@ class PageSeeder extends Seeder
                     'value' => 'Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis laboriosam.',
                     'width'  => 12
                 ],
+            ])
+        ]);
+
+        Block::create([
+            'name'        => 'lps_block6',
+            'title'       => 'Blocke #6 (teams)',
+            'type'        => 'dinamyc-data',
+            'description' => 'Seccion Teams',
+            'page_id' => $page->id,
+            'position'    => $count++,
+            'details'     => json_encode([
+                'title_strong' => [
+                    'type'   => 'text',
+                    'name'   => 'title_strong',
+                    'label'  => 'Titulo en Negrita',
+                    'value'  => 'Team',
+                    'width'  => 6
+                ],
+                'title_default' => [
+                    'type'  => 'text',
+                    'name'  => 'title_default',
+                    'label' => 'Titulo Normal',
+                    'value' => 'Team LoginWeb',
+                    'width'  => 6
+                ],
+                'space' => [
+                    'type' => 'space',
+                    'name' => 'space'
+                ],
+                'description' => [
+                    'type'  => 'text_area',
+                    'name'  => 'description',
+                    'label' => 'Descripcion',
+                    'value' => 'Nuestro Equipo ',
+                    'width'  => 12
+                ],
+                'space1' => [
+                    'type' => 'space1',
+                    'name' => 'space'
+                ],
+                'image1' => [
+                    'type'  => 'image',
+                    'name'  => 'image1',
+                    'label' => 'Imagen #1',
+                    'value' => 'image1.png',
+                    'width'  => 4
+                ],
+                'title1' => [
+                    'type'  => 'text',
+                    'name'  => 'title1',
+                    'label' => 'Titulo #1',
+                    'value' => 'Percy Alvarez',
+                    'width'  => 4
+                ],
+                'small1' => [
+                    'type'  => 'text',
+                    'name'  => 'small1',
+                    'label' => 'small',
+                    'value' => 'Co-funder & CEO',
+                    'width'  => 4
+                ],
+                'space2' => [
+                    'type' => 'space',
+                    'name' => 'space2'
+                ],
+                'image2' => [
+                    'type'  => 'image',
+                    'name'  => 'image2',
+                    'label' => 'Imagen #2',
+                    'value' => 'image2.png',
+                    'width'  => 4
+                ],
+                'title2' => [
+                    'type'  => 'text',
+                    'name'  => 'title2',
+                    'label' => 'Titulo #2',
+                    'value' => 'Augusto Carvalho',
+                    'width'  => 4
+                ],
+                'small2' => [
+                    'type'  => 'text',
+                    'name'  => 'small2',
+                    'label' => 'small #2',
+                    'value' => 'Developer Backend',
+                    'width'  => 4
+                ],
+                'space3' => [
+                    'type' => 'space',
+                    'name' => 'space3'
+                ],
+                'image3' => [
+                    'type'  => 'image',
+                    'name'  => 'image3',
+                    'label' => 'Imagen #3',
+                    'value' => 'image3.png',
+                    'width'  => 4
+                ],
+                'title3' => [
+                    'type'  => 'text',
+                    'name'  => 'title3',
+                    'label' => 'Titulo #3',
+                    'value' => 'Agustin Mejia',
+                    'width'  => 4
+                ],
+                'small3' => [
+                    'type'  => 'text',
+                    'name'  => 'small3',
+                    'label' => 'small #3',
+                    'value' => 'Developer Full Stack',
+                    'width'  => 4
+                ],
+                'space4' => [
+                    'type' => 'space',
+                    'name' => 'space4'
+                ],
+                'image4' => [
+                    'type'  => 'image',
+                    'name'  => 'image4',
+                    'label' => 'Imagen #4',
+                    'value' => 'image4.png',
+                    'width'  => 4
+                ],
+                'title4' => [
+                    'type'  => 'text',
+                    'name'  => 'title4',
+                    'label' => 'Titulo #4',
+                    'value' => 'Raul R. Montero',
+                    'width'  => 4
+                ],
+                'small4' => [
+                    'type'  => 'text',
+                    'name'  => 'small4',
+                    'label' => 'Titulo #4',
+                    'value' => 'Designer Devops',
+                    'width'  => 4
+                ]
+            ])
+        ]);
+
+        Block::create([
+            'name'        => 'lps_block7',
+            'title'       => 'Blocke #7 (portafolio)',
+            'type'        => 'dinamyc-data',
+            'description' => 'Seccion Portafolio',
+            'page_id' => $page->id,
+            'position'    => $count++,
+            'details'     => json_encode([
+
             ])
         ]);
     }

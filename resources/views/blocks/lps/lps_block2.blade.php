@@ -10,8 +10,8 @@
 
         <!-- First column -->
         <div class="col-lg-7 col-md-12 mb-4 text-center">
-        
-            <img src="{{ voyager::Image($data->image_donwload->value) }}" alt="{{ $data->image_donwload->value }}"
+           
+            <img src="{{  $data->image_donwload->value != 'defualt.png' ? voyager::Image($data->image_donwload->value) :'https://mystorage.loginweb.dev/storage/Projects/loginweb/hero-app.webp' }}" alt="{{ $data->image_donwload->value }}"
             class="img-fluid z-depth-2 rounded">
         </div>
         <!-- /First column -->

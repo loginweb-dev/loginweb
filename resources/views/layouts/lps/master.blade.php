@@ -19,6 +19,9 @@
   <link rel="stylesheet" href="{{ asset('resources/landingpage/css/bootstrap.min.css') }}">
   <!-- Material Design Bootstrap -->
   <link rel="stylesheet" href="{{ asset('resources/landingpage/css/mdb.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('resources/landingpage/css/addons-pro/compiled-addons-4.19.1.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('resources/landingpage/css/addons-pro/cards-extended.min.css') }}">
+  
   
   <style type="text/css">
     html,

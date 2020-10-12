@@ -27,7 +27,6 @@ class PageController extends Controller
 
     public function update(Request $request, $page_id)
     {
-       
         $page = Page::where('id', $page_id)->first();
         $page->name = $request->name;
         $page->slug = Str::slug($request->name);
@@ -36,6 +35,7 @@ class PageController extends Controller
         if($request->hasFile('image')){
          
             $image=Storage::disk('public')->put('pages/'.date('F').date('Y'), $request->file('image'));
+            // return $image;
             $page->image = $image;
         }
         $mijson = $page->details;
@@ -44,7 +44,8 @@ class PageController extends Controller
             {
                 if($value['type'] == 'image')
                 {
-                    $mijson = str_replace($value['value'], $value['value'], $mijson);
+                  
+                    // $mijson = str_replace($value['value'], $value['value'], $mijson);
                 }else{
                     if($value['type'] == 'space')
                     {
@@ -53,19 +54,20 @@ class PageController extends Controller
                         $mijson_aux = json_decode($mijson, true);
                         $mijson_aux[$value['name']]['value'] = $request[$value['name']];
                         $mijson = json_encode($mijson_aux);
+                        // $mijson = str_replace($value['value'], $request[$value['name']], $mijson);
                     }
                 }
                 if($request->hasFile($value['name']))
                 {
-                    $dirimage = Storage::disk('public')->put('pages/'.date('F').date('Y'), $request->file($value['name']));
-                    $mijson = str_replace($value['value'], $dirimage, $mijson);
+                    $dirimage = Storage::disk('public')->put('blocks/'.date('F').date('Y'), $request->file($value['name']));
+                    $mijson_aux = json_decode($mijson, true);
+                    $mijson_aux[$value['name']]['value'] = $dirimage;
+                    $mijson = json_encode($mijson_aux);
                 }
                
             }
-            // return $mijson;
             $page->details = $mijson;
         }
-   
         $page->save();
         
         return back()->with([
