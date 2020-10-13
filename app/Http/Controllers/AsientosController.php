@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Asiento;
+use App\Models\DetalleAsiento;
 use App\Models\Estado;
 
 use Illuminate\Http\Request;
@@ -21,7 +22,9 @@ class AsientosController extends Controller
         $asientos = Asiento::with('estado')
                             ->whereRaw($query)
                             ->paginate(10);
-        return view('admin.asientos.index', compact('asientos', 'search'));
+        $message = request('alert');
+        return view('admin.asientos.index', compact('asientos', 'search', 'message'));
+
     }
 
     /**
@@ -86,7 +89,7 @@ class AsientosController extends Controller
      */
     public function edit(Asiento $asiento)
     {
-        //
+        return view('admin.asientos.edit',compact('asiento'));
     }
 
     /**
@@ -96,9 +99,26 @@ class AsientosController extends Controller
      * @param  \App\Models\Asiento  $asiento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Asiento $asiento)
+    public function update(Request $request, $id)
     {
-        //
+        $asiento = Asiento::findOrFail($id);
+
+        $items = collect($request->items)->transform(function($product) {
+            return new DetalleAsiento($product);
+        });
+
+        $data = $request->except('items');
+        $data['total_haber'] = $items->sum('haber');
+        $data['total_debe'] = $items->sum('debe');
+
+        $asiento->update($data);
+
+        DetalleAsiento::where('asiento_id', $asiento->id)->delete();
+
+        $asiento->items()->saveMany($items);
+
+        return response()
+            ->json(['updated' => true, 'id' => $asiento->id]);
     }
 
     /**

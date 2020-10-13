@@ -1,12 +1,12 @@
 @extends('voyager::master')
 
-@section('page_title', 'Agregar asiento')
+@section('page_title', 'Editar asiento')
 
-@if(auth()->user()->hasPermission('browse_asientos'))
+@if(auth()->user()->hasPermission('edit_asientos'))
 
 @section('page_header')
     <h1 class="page-title">
-        <i class="voyager-dollar"></i> Agregar Asiento Contable
+        <i class="voyager-dollar"></i> Editar Asiento Contable
     </h1>
 @stop
 
@@ -38,11 +38,11 @@
                                     <h4>Datos Auxiliares</h4><br>
                                     <div class="col-md-6 form-group">
                                         <label>U.F.V.</label>
-                                       <input type="number" class="form-control" v-model="form.ufv">
+                                       <input type="number" class="form-control" v-model="form1.ufv">
                                     </div>
                                     <div class="col-md-6 form-group">
                                         <label>Tipo de Cambio:</label>
-                                       <input type="number" class="form-control" v-model="form.tipo_cambio">
+                                       <input type="number" class="form-control" v-model="form1.tipo_cambio">
                                     </div>
 
                                 </div>
@@ -64,8 +64,8 @@
                                                             <th>Opciones</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody v-if="form.items.length>0">
-                                                        <tr v-for="cuenta in form.items">
+                                                    <tbody v-if="form1.items.length>0">
+                                                        <tr v-for="cuenta in form1.items">
                                                             <td v-text="cuenta.code">
                                                             </td>
                                                             <td v-text="cuenta.name">
@@ -94,7 +94,7 @@
                                                             </td>
                                                         </tr>
                                                     </tbody>
-                                                    <tfoot v-if="form.items.length>0">
+                                                    <tfoot v-if="form1.items.length>0">
                                                         <tr>
                                                             <td colspan="2">
                                                                 Totales
@@ -120,9 +120,9 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label>Glosa</label>
-                                    <textarea name="glosa"  rows="5" class="form-control" v-model="form.glosa">
+                                    <textarea name="glosa"  rows="5" class="form-control" v-model="form1.glosa">
                                     </textarea>
-                                    <input type="button" value="Registrar" class="btn btn-info" @click="storeAsiento" :disabled="isProcessing">
+                                    <input type="button" value="Registrar" class="btn btn-info" @click="update" :disabled="isProcessing">
                                     <a href="{{url()->previous()}}" class="btn btn-default">Cancel</a>
                                 </div>
                             </div>
@@ -193,7 +193,7 @@
     <script src="{{ url('plugins/formatSelect2.js') }}"></script>
     <script type="text/javascript">
         Vue.http.headers.common['X-CSRF-TOKEN'] = '{{csrf_token()}}';
-        window._form1 = {};
+        window._form1 = {!! $asiento->toJson() !!};
         window._form = {
 			tituloModal: 'Seleccione uno o varias cuentas',
             //variables para agregar al detalle de lacuenta

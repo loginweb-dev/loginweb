@@ -3,23 +3,37 @@ var app = new Vue({
     data: {
       isProcessing: false,
       form: {},
+      form1: {},
       errors: {}
     },
     created: function () {
       Vue.set(this.$data, 'form', _form);
+      Vue.set(this.$data, 'form1', _form1);
     },
     mounted() {
       this.listarCuentas(this.form.buscar);
     },
     computed: {
         totalDebe() {
-            return this.form.items.reduce((carry, item) => {
-                return carry + Number(item.debe)
-            }, 0)
+            if (!this.isEmpty(this.form1)) {
+                return this.form1.items.reduce((carry, item) => {
+                    return carry + parseFloat(item.debe)
+                }, 0)
+            }else{
+                return this.form.items.reduce((carry, item) => {
+                    return carry + parseFloat(item.debe)
+                }, 0)
+            }
+
         },
         totalHaber() {
+            if (!this.isEmpty(this.form1)) {
+                return this.form1.items.reduce((carry, item) => {
+                    return carry + parseFloat(item.haber)
+                }, 0)
+            }
             return this.form.items.reduce((carry, item) => {
-                return carry + Number(item.haber)
+                return carry + parseFloat(item.haber)
             }, 0)
         },
         totalesIguales(){
@@ -33,6 +47,13 @@ var app = new Vue({
           });
         },
       remove: function(detalle) {
+        if (this.isEmpty(this.form1)) {
+            const index =this.form.items.indexOf(detalle);
+            this.form.items.splice(index, 1);
+        } else {
+            const index =this.form1.items.indexOf(detalle);
+            this.form1.items.splice(index, 1);
+        }
         const index =this.form.items.indexOf(detalle);
         this.form.items.splice(index, 1);
       },
@@ -52,8 +73,20 @@ var app = new Vue({
               me.form.cuenta=me.form.cuentas[0]['name'];
               me.form.tipo=me.form.cuentas[0]['tipo'];
 
-                //push al a los items
-                me.form.items.push({
+              if (this.isEmpty(this.form1)) {
+                  //push al a los items
+                    me.form.items.push({
+                        cuenta_id: me.form.cuenta_id,
+                        //fecha: me.form.fecha,
+                        code: me.form.code,
+                        name: me.form.cuenta,
+                        glosa: me.form.glosaitem,
+                        debe: parseFloat(me.form.debe),
+                        haber: parseFloat(me.form.haber),
+                        tipo: me.form.tipo
+                    });
+              } else {
+                me.form1.items.push({
                     cuenta_id: me.form.cuenta_id,
                     //fecha: me.form.fecha,
                     code: me.form.code,
@@ -63,6 +96,8 @@ var app = new Vue({
                     haber: parseFloat(me.form.haber),
                     tipo: me.form.tipo
                 });
+              }
+
                 //me.itemsarray( me.form.cuentas);
                 me.form.cuenta_id=0;
                 me.form.codigobuscar="";
@@ -121,17 +156,30 @@ var app = new Vue({
       },
       agregarDetalleModal(data =[]){
         let me=this;
+        if (this.isEmpty(this.form1)) {
+            me.form.items.push({
+                cuenta_id: data['id'],
+                //fecha: me.form.fecha,
+                code: data['code'],
+                name: data['name'],
+                glosa: me.form.glosaitem,
+                debe: parseFloat(me.form.debe),
+                haber: parseFloat(me.form.haber),
+                tipo: data['tipo']
+            });
+        }else{
+            me.form1.items.push({
+                cuenta_id: data['id'],
+                //fecha: me.form.fecha,
+                code: data['code'],
+                name: data['name'],
+                glosa: me.form.glosaitem,
+                debe: parseFloat(me.form.debe),
+                haber: parseFloat(me.form.haber),
+                tipo: data['tipo']
+            });
+        }
 
-        me.form.items.push({
-            cuenta_id: data['id'],
-            //fecha: me.form.fecha,
-            code: data['code'],
-            name: data['name'],
-            glosa: me.form.glosaitem,
-            debe: parseFloat(me.form.debe),
-            haber: parseFloat(me.form.haber),
-            tipo: data['tipo']
-        });
         //quitamos el item del arrayde cuenta
         const index =this.form.arrayCuentas.indexOf(data);
         this.form.arrayCuentas.splice(index, 1);
@@ -140,8 +188,10 @@ var app = new Vue({
 
       },
         storeAsiento: function() {
+            this.isProcessing = true;
             var url = '/admin/asientos';
             //var url = '/cerma/public/admin/asientos';
+
             this.$http.post(url,{
                 'items': this.form.items,
                 'ufv': this.form.ufv,
@@ -149,14 +199,32 @@ var app = new Vue({
                 'glosa': this.form.glosa,
                 })
                 .then(res => {
-                    console.log(res);
                     if(res.data && res.data.saved) {
                     toastr.success('Asiento creado con éxito');
                         this.limpiar();
+                    }else{
+                        this.isProcessing = false;
                     }
                 }).catch(error => {
+                    this.isProcessing = false;
                     this.errors = 'Corrija para poder crear con éxito'
                 });
+        },
+        update: function() {
+            this.isProcessing = true;
+
+            this.$http.put('/admin/asientos/' + this.form1.id, this.form1)
+              .then(function(response) {
+                if(response.data.updated) {
+                  window.location = '/admin/asientos?alert=1';
+                } else {
+                  this.isProcessing = false;
+                }
+              })
+              .catch(function(response) {
+                this.isProcessing = false;
+                Vue.set(this.$data, 'errors', response.data);
+              })
         },
         limpiar() {
             this.form.cuenta_id=0;
@@ -170,6 +238,13 @@ var app = new Vue({
         uploadComprobante() {
             this.form.comprobante = this.$refs.file.files[0];
             console.log(this.form.comprobante)
+        },
+        isEmpty(obj) {
+            for(var key in obj) {
+                if(obj.hasOwnProperty(key))
+                    return false;
+            }
+            return true;
         }
     }
   })

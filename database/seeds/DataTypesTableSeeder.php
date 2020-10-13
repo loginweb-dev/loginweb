@@ -138,10 +138,10 @@ class DataTypesTableSeeder extends Seeder
                 'controller' => NULL,
                 'description' => NULL,
                 'generate_permissions' => 1,
-                'server_side' => 0,
-                'details' => '{"order_column":"id","order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}',
+                'server_side' => 1,
+                'details' => '{"order_column":"id","order_display_column":"id","order_direction":"asc","default_search_key":null,"scope":null}',
                 'created_at' => '2020-10-09 21:15:22',
-                'updated_at' => '2020-10-09 21:22:36',
+                'updated_at' => '2020-10-12 16:15:43',
             ),
         ));
         

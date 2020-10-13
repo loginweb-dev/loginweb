@@ -18,7 +18,7 @@
 @section('content')
     <div class="page-content browse container-fluid">
         @include('voyager::alerts')
-        
+
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-bordered">
@@ -71,17 +71,21 @@
                                         <td>{{ $asiento->estado->name}}</td>
                                         <td class="no-sort no-click bread-actions text-right">
                                             @if($asiento->estado_id != $ultimo)
-                                            <a href="javascript:;" title="Ver" class="btn btn-sm btn-warning aprobe" data-id="{{$asiento->id}}">
+                                            <a href="javascript:;" title="Ver" class="btn btn-sm btn-success aprobe" data-id="{{$asiento->id}}">
                                                 <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm">Aprobar</span>
-                                            </a> 
+                                            </a>
                                             @endif
-                                            
+                                            <a href={{ route('asientos.edit',$asiento) }} title="Ver" class="btn btn-sm btn-warning">
+                                                <i class="voyager-edit"></i> <span class="hidden-xs hidden-sm">Editar</span>
+                                            </a>
                                             {{-- <button title="Imprimir" onclick="generar_recibo({{ $asiento->id }})" class="btn btn-sm btn-primary edit">
                                                 <i class="voyager-polaroid"></i> <span class="hidden-xs hidden-sm">Imprimir</span>
                                             </button>--}}
-                                            <a href="javascript:;" title="agregar comprobante" class="btn btn-sm btn-info pull-rigth add" data-id="{{$asiento->id}}">
-                                                <i class="voyager-list-add"></i> <span class="hidden-xs hidden-sm">Comprobante</span>
-                                            </a>
+                                            @if (!$asiento->comprobante)
+                                                <a href="javascript:;" title="agregar comprobante" class="btn btn-sm btn-info pull-rigth add" data-id="{{$asiento->id}}">
+                                                    <i class="voyager-list-add"></i> <span class="hidden-xs hidden-sm">Comprobante</span>
+                                                </a>
+                                            @endif
                                             <form method="post" action="{{ route('printf_asiento',$asiento->id) }}" style="display:inline" target="__blank">
                                                 {{ csrf_field() }}
                                                 <button id="printf" type="submit" class="btn btn-sm btn-danger pull-rigth">Imprimir <i class="voyager-polaroid"></i></button>
@@ -190,6 +194,10 @@
             $('#aprob_form')[0].action = '{{route('aprobar_asiento', ['id' => '__id'])}}'.replace('__id', $(this).data('id'));
             $('#modal_aprobacion').modal('show');
         });
+
+        @if($message)
+            toastr.success('Bien hecho!', 'Asiento editado correctamente')
+        @endif
     </script>
 @stop
 
