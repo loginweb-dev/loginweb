@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <!-- Favicon -->
-        <?php $admin_favicon = Voyager::setting('admin.icon_image', ''); ?>
+        <?php $admin_favicon = Voyager::setting('admin.bg_image', ''); ?>
         @if($admin_favicon == '')
             <link rel="shortcut icon" href="{{ asset('images/icon.png') }}" type="image/png">
         @else
@@ -39,7 +39,7 @@
         <table width="100%">
             <tr>
                 <td width="30%" align="center" style="font-size:7px">
-                    <img src="{{ setting('admin.icon_image') ? url('storage').'/'.setting('admin.icon_image') : url('images/icon.png') }}" alt="loginweb" width="60px"><br>
+                    <img src="{{ setting('admin.bg_image') ? url('storage').'/'.setting('admin.bg_image') : url('images/icon.png') }}" alt="loginweb" width="60px"><br>
                     <b >{{ setting('admin.title') }}</b><br>
                     <b>{{ setting('admin.description') }}</b><br>
                 </td>

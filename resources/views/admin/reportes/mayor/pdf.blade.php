@@ -33,23 +33,11 @@
         <table width="100%">
                     <tr>
                         <td width="30%" align="center" style="font-size:7px">
-                            <img src="{{url('storage').'/'.setting('admin.icon_image')}}" alt="loginweb" width="60px"><br>
-                            <b>{{setting('empresa.nombre')}}</b><br>
-
-                            @if(setting('empresa.telefono')!='')
-                            <b>Telf: {{setting('empresa.telefono')}}</b>
-                            @endif
-                            @if(setting('empresa.telefono')!='' && setting('empresa.celular')!='')
-                                -
-                            @endif
-                            @if(setting('empresa.celular')!='')
-                            <b>Cel: {{setting('empresa.celular')}}</b><br>
-                            @endif
-
-                            <b>{{setting('empresa.direccion')}}</b><br>
-                            <b>{{setting('empresa.ciudad')}}</b><br>
+                            <img src="{{url('storage').'/'.setting('admin.bg_image')}}" alt="loginweb" width="60px"><br>
+                            <b>{{setting('admin.title')}}</b><br>
+                            <b>{{setting('admin.descripcion')}}</b><br>
                         </td>
-                        <td width="40%" align="center"><span style="margin-bottom:0px;font-weight:bold;font-size:25px">LIBRO Mayor</span></td>
+                        <td width="40%" align="center"><span style="margin-bottom:0px;font-weight:bold;font-size:25px">LIBRO MAYOR</span></td>
                         <td width="30%" align="right"><span style="font-weight:bold;color:red;font-size:15px;"></span></td>
                     </tr>
                 </table>
