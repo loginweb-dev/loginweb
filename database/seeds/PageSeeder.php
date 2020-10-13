@@ -23,7 +23,7 @@ class PageSeeder extends Seeder
                     'type' => 'text',
                     'name' => 'title',
                     'label' => 'Titulo',
-                    'value' => 'Make purchases with our app',
+                    'value' => 'Empresa de desarrollo de software & hardware',
                     'width' => 6
                 ],
                 'image1' => [
@@ -61,17 +61,17 @@ class PageSeeder extends Seeder
                     'value' => '#productos',
                     'width' => 6
                 ],
-                
+
                 'description_data' => [
                     'type' => 'rich_text_box',
                     'name' => 'description_data',
                     'label' => 'Descripcion',
-                    'value' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem repellendus quasi fuga nesciunt dolorum nulla magnam veniam sapiente, fugiat! Commodi sequi non animi ea dolor molestiae iste.',
+                    'value' => 'creamos software a medida del cliente, incluyendo aplicaciones de negocios, integraci&oacute;n de sistemas existentes, programaci&oacute;n web, dispositivos m&oacute;viles y bases de datos utilizando herramientas de desarrollo actuales en el mercado.',
                     'width' => 12
                 ]
             ])
         ]);
-        
+
         $count=1;
         Block::create([
             'name'        => 'lps_block1',
@@ -85,21 +85,21 @@ class PageSeeder extends Seeder
                     'type'   => 'text',
                     'name'   => 'title_strong',
                     'label'  => 'Titulo en Negrita',
-                    'value'  => 'Lorem ipsum',
+                    'value'  => 'Loginweb',
                     'width'  => 6
                 ],
                 'title_default' => [
                     'type'  => 'text',
                     'name'  => 'title_default',
                     'label' => 'Titulo Normal',
-                    'value' => 'dolor sit amet',
+                    'value' => 'Soluciones',
                     'width'  => 6
                 ],
                 'description' => [
                     'type'  => 'rich_text_box',
                     'name'  => 'description',
                     'label' => 'Descripcion',
-                    'value' => 'Lorem ipsum dolor sit amet, consectetur dipisicing elit. Laborum quas, eos officia maiores ipsam ipsum dolores reiciendis ad voluptas, animi obcaecati adipisci sapiente mollitia.',
+                    'value' => '<p>Los servicios ofrecidos por&nbsp;<strong>Loginweb</strong>&nbsp;comprenden diversos ambitos de la inform&aacute;tica. Analizamos de manera exhaustiva los requerimientos de su empresa, buscando la soluci&oacute;n que mejor se adapte a sus necesidades.</p>',
                     'width'  => 12
                 ],
                 'space' => [
@@ -191,21 +191,21 @@ class PageSeeder extends Seeder
                     'type'   => 'text',
                     'name'   => 'title_strong',
                     'label'  => 'Titulo en Negrita',
-                    'value'  => 'Lorem ipsum',
+                    'value'  => 'Aplicaciones móvil',
                     'width'  => 4
                 ],
                 'title_default' => [
                     'type'  => 'text',
                     'name'  => 'title_default',
                     'label' => 'Titulo Normal',
-                    'value' => 'dolor sit amet',
+                    'value' => 'Dinámicas',
                     'width'  => 4
                 ],
                 'description' => [
                     'type'  => 'rich_text_box',
                     'name'  => 'description',
                     'label' => 'Descripcion',
-                    'value' => 'Lorem Ipsum is simply dummy text of the printing and typesetting let. Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+                    'value' => '<p>Construimos Apliaciones&nbsp;movil dinámicas con panel de control, donde puedes modificar acciones de t&uacute;&nbsp;app movil en tiempo real, sin necesidad de buscar un profesional para dicha modificacion. Ademas si ya tienes sitio web la convertimos en app movil lista para descargar en la tiendas :</p>',
                     'width'  => 12
                 ],
                 'button1' => [
