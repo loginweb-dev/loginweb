@@ -41,6 +41,14 @@ class EstadosTableSeeder extends Seeder
                 'updated_at' => '2020-10-09 21:32:22',
                 'deleted_at' => NULL,
             ),
+            3 =>
+            array (
+                'id' => 4,
+                'name' => 'RECHASO',
+                'created_at' => '2020-10-09 21:32:22',
+                'updated_at' => '2020-10-09 21:32:22',
+                'deleted_at' => NULL,
+            )
         ));
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Asiento;
 use App\Models\DetalleAsiento;
 use App\Models\Estado;
+use App\Models\AsientoUser;
 
 use Illuminate\Http\Request;
 use DB;
@@ -65,7 +66,12 @@ class AsientosController extends Controller
             ]);
             return $asiento;
         });
-
+        AsientoUser::create([
+            'observacion'=> 'Registro de Asiento',
+            'user_id' => $asiento->user_id,
+            'asiento_id' => $asiento->id,
+            'estado_id' => $estado->id
+        ]);
         return response()
             ->json(['saved' => true, 'id' => $asiento->id]);
     }
@@ -78,7 +84,7 @@ class AsientosController extends Controller
      */
     public function show(Asiento $asiento)
     {
-        //
+        return view('admin.asientos.show',compact('asiento'));
     }
 
     /**
@@ -191,11 +197,18 @@ class AsientosController extends Controller
         return $pdf->stream();
     }
 
-    public function aprobar_asiento($id){
+    public function aprobar_asiento(Request $request,$id){
+    //$this->authorize('update', $post);
      $asiento = Asiento::findOrFail($id);
-     $estado = Estado::where('id','>',$asiento->estado_id)->first();
-     $asiento->estado_id = $estado->id;
+     $estado = Estado::findOrFail($request->estado);
+     $asiento->estado_id = $request->estado;
      $asiento->update();
+     AsientoUser::create([
+         'observacion'=> $request->observacion,
+         'user_id' => auth()->user()->id,
+         'asiento_id' => $asiento->id,
+         'estado_id' => $estado->id
+     ]);
      return back()->with([
         'message' => "El asiento, se aprobo correctamente.",
         'alert-type' => 'info'

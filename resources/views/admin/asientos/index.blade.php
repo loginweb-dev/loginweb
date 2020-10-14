@@ -9,9 +9,11 @@
         <h1 class="page-title">
             <i class="voyager-dollar"></i> Asientos Contables
         </h1>
-        <a href="{{ route('asientos.create') }}" class="btn btn-success btn-add-new">
-            <i class="voyager-plus"></i> <span>Crear</span>
-        </a>
+        @can('create', \App\Models\Asiento::class)
+            <a href="{{ route('asientos.create') }}" class="btn btn-success btn-add-new">
+                <i class="voyager-plus"></i> <span>Crear</span>
+            </a>
+        @endcan
     </div>
 @stop
 
@@ -52,6 +54,7 @@
                                      $ultimo = \App\Models\Estado::latest()->first()->id;
                                     @endphp
                                     @forelse ($asientos as $asiento)
+                                    @can('viewAny', $asiento)
                                     <tr>
                                         <td>
                                             {{ $asiento->user->name }} <br>
@@ -70,28 +73,37 @@
                                         </td>
                                         <td>{{ $asiento->estado->name}}</td>
                                         <td class="no-sort no-click bread-actions text-right">
-                                            @if($asiento->estado_id != $ultimo)
+                                            @can('acciones', \App\Models\Asiento::class)
                                             <a href="javascript:;" title="Ver" class="btn btn-sm btn-success aprobe" data-id="{{$asiento->id}}">
-                                                <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm">Aprobar</span>
+                                                <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm">Otras Acciones</span>
                                             </a>
-                                            @endif
+                                            @endcan
+                                            @can('update', $asiento)
                                             <a href={{ route('asientos.edit',$asiento) }} title="Ver" class="btn btn-sm btn-warning">
                                                 <i class="voyager-edit"></i> <span class="hidden-xs hidden-sm">Editar</span>
                                             </a>
+                                            @endcan
+
                                             {{-- <button title="Imprimir" onclick="generar_recibo({{ $asiento->id }})" class="btn btn-sm btn-primary edit">
                                                 <i class="voyager-polaroid"></i> <span class="hidden-xs hidden-sm">Imprimir</span>
                                             </button>--}}
+                                            <a href="{{ route('asientos.show',$asiento) }}" class="btn btn-sm btn-success pull-rigth historial">
+                                                <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm">Ver</span>
+                                            </a>
                                             @if (!$asiento->comprobante)
                                                 <a href="javascript:;" title="agregar comprobante" class="btn btn-sm btn-info pull-rigth add" data-id="{{$asiento->id}}">
                                                     <i class="voyager-list-add"></i> <span class="hidden-xs hidden-sm">Comprobante</span>
                                                 </a>
                                             @endif
+                                            @can('view', $asiento)
                                             <form method="post" action="{{ route('printf_asiento',$asiento->id) }}" style="display:inline" target="__blank">
                                                 {{ csrf_field() }}
                                                 <button id="printf" type="submit" class="btn btn-sm btn-danger pull-rigth">Imprimir <i class="voyager-polaroid"></i></button>
                                             </form>
+                                            @endcan
                                         </td>
                                     </tr>
+                                    @endcan
                                     @empty
                                         <tr>
                                             <td colspan="6" class="text-center">No hay registros</td>
@@ -137,12 +149,25 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="{{ __('voyager::generic.close') }}"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><i class="voyager-archive"></i>Quieres aprobar este asiento ?</h4>
+                    <h4 class="modal-title"><i class="voyager-archive"></i>Selecciona una accion!!</h4>
                 </div>
                 <div class="modal-footer">
                     <form action="#" id="aprob_form" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
-                        <input type="submit" class="btn btn-info pull-right delete-confirm" value="{{ __('Si aprobar') }}">
+                        <div class="form-group">
+                            <label for="">Seleccione</label>
+                            <select name="estado" class="form-control">
+                                @foreach(\App\Models\Estado::pluck('name','id') as $id => $estado)
+									<option value="{{ $id }}">{{ $estado }} </option>
+								@endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Observacion</label>
+                            <textarea name="observacion"  rows="5" class="form-control">
+                            </textarea>
+                        </div>
+                        <input type="submit" class="btn btn-info pull-right delete-confirm" value="Registrar">
                     </form>
                     <button type="button" class="btn btn-default pull-right" data-dismiss="modal">{{ __('voyager::generic.cancel') }}</button>
                 </div>
