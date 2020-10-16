@@ -52,7 +52,6 @@
                                 <tbody>
                                     @php
                                      $ultimo = \App\Models\Estado::latest()->first()->id;
-                                     $est_actual = \App\Models\Estado::where('name',setting('contable.aprobación'))->first()->id;
                                     @endphp
                                     @forelse ($asientos as $asiento)
                                     @can('viewAny', $asiento)
