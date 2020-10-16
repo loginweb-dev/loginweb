@@ -35,7 +35,10 @@ class AsientosController extends Controller
      */
     public function create()
     {
-        return view('admin.asientos.create');
+        $estados = Estado::skip(0)
+                            ->take(2)
+                            ->get();
+        return view('admin.asientos.create',compact('estados'));
     }
 
     /**
@@ -51,8 +54,8 @@ class AsientosController extends Controller
         $asiento->ufv = $request->ufv;
         $asiento->tipo_cambio = $request->tipo;
         $asiento->glosa = $request->glosa;
-        $estado = Estado::where('deleted_at',null)->first();
-        $asiento->estado_id = $estado->id;
+        //$estado = Estado::where('deleted_at',null)->first();
+        $asiento->estado_id = $request->estado;
         $asiento->total_haber = collect($request->items)->sum(function($item) {
             return $item['haber'];
         });
@@ -70,7 +73,7 @@ class AsientosController extends Controller
             'observacion'=> 'Registro de Asiento',
             'user_id' => $asiento->user_id,
             'asiento_id' => $asiento->id,
-            'estado_id' => $estado->id
+            'estado_id' => $request->estado
         ]);
         return response()
             ->json(['saved' => true, 'id' => $asiento->id]);
@@ -95,7 +98,10 @@ class AsientosController extends Controller
      */
     public function edit(Asiento $asiento)
     {
-        return view('admin.asientos.edit',compact('asiento'));
+        $estados = Estado::skip(0)
+                            ->take(2)
+                            ->get();
+        return view('admin.asientos.edit',compact('asiento','estados'));
     }
 
     /**
@@ -122,6 +128,13 @@ class AsientosController extends Controller
         DetalleAsiento::where('asiento_id', $asiento->id)->delete();
 
         $asiento->items()->saveMany($items);
+
+        AsientoUser::create([
+            'observacion'=> 'Asiento Actualizado',
+            'user_id' => $asiento->user_id,
+            'asiento_id' => $asiento->id,
+            'estado_id' => $request->estado_id
+        ]);
 
         return response()
             ->json(['updated' => true, 'id' => $asiento->id]);
@@ -198,10 +211,18 @@ class AsientosController extends Controller
     }
 
     public function aprobar_asiento(Request $request,$id){
-    //$this->authorize('update', $post);
-     $asiento = Asiento::findOrFail($id);
-     $estado = Estado::findOrFail($request->estado);
-     $asiento->estado_id = $request->estado;
+
+        $estado = Estado::findOrFail($request->estado);
+        $asiento = Asiento::findOrFail($id);
+        $asiento->estado_id = $request->estado;
+        $info = 'info';
+        if ($estado->name == setting('contable.rechaso')) {
+             $this->authorize('rechaso', $asiento);
+             $asiento->estado_id = 1;
+            $info = "error";
+        } else {
+            $info = "info";
+        }
      $asiento->update();
      AsientoUser::create([
          'observacion'=> $request->observacion,
@@ -210,8 +231,8 @@ class AsientosController extends Controller
          'estado_id' => $estado->id
      ]);
      return back()->with([
-        'message' => "El asiento, se aprobo correctamente.",
-        'alert-type' => 'info'
+        'message' => ''.$estado->name.' ejecutada',
+        'alert-type' => $info
         ]);
     }
 }

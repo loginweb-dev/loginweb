@@ -52,6 +52,7 @@
                                 <tbody>
                                     @php
                                      $ultimo = \App\Models\Estado::latest()->first()->id;
+                                     $est_actual = \App\Models\Estado::where('name',setting('contable.aprobación'))->first()->id;
                                     @endphp
                                     @forelse ($asientos as $asiento)
                                     @can('viewAny', $asiento)
@@ -73,10 +74,10 @@
                                         </td>
                                         <td>{{ $asiento->estado->name}}</td>
                                         <td class="no-sort no-click bread-actions text-right">
-                                            @can('acciones', \App\Models\Asiento::class)
-                                            <a href="javascript:;" title="Ver" class="btn btn-sm btn-success aprobe" data-id="{{$asiento->id}}">
-                                                <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm">Otras Acciones</span>
-                                            </a>
+                                            @can('acciones', $asiento)
+                                                <a href="javascript:;" title="Ver" class="btn btn-sm btn-success aprobe" data-id="{{$asiento->id}}" data-estadoid="{{ $asiento->estado_id }}">
+                                                    <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm">Otras Acciones</span>
+                                                </a>
                                             @endcan
                                             @can('update', $asiento)
                                             <a href={{ route('asientos.edit',$asiento) }} title="Ver" class="btn btn-sm btn-warning">
@@ -157,7 +158,10 @@
                         <div class="form-group">
                             <label for="">Seleccione</label>
                             <select name="estado" class="form-control">
-                                @foreach(\App\Models\Estado::pluck('name','id') as $id => $estado)
+                                @php
+                                    $id = 0;
+                                @endphp
+                                @foreach(\App\Models\Estado::where('id','>',2)->pluck('description','id') as $id => $estado)
 									<option value="{{ $id }}">{{ $estado }} </option>
 								@endforeach
                             </select>
@@ -217,6 +221,7 @@
         });
         $('td').on('click', '.aprobe', function (e) {
             $('#aprob_form')[0].action = '{{route('aprobar_asiento', ['id' => '__id'])}}'.replace('__id', $(this).data('id'));
+            $a = $(this).data('estadoid');
             $('#modal_aprobacion').modal('show');
         });
 

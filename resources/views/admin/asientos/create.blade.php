@@ -36,15 +36,23 @@
                                 </div>
                                 <div class="col-md-6">
                                     <h4>Datos Auxiliares</h4><br>
-                                    <div class="col-md-6 form-group">
+                                    <div class="col-md-2 form-group">
                                         <label>U.F.V.</label>
                                        <input type="number" class="form-control" v-model="form.ufv">
                                     </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>Tipo de Cambio:</label>
+                                    <div class="col-md-2 form-group">
+                                        <label>Tp: Cambio:</label>
                                        <input type="number" class="form-control" v-model="form.tipo_cambio">
                                     </div>
-
+                                    <div class="col-md-8">
+                                        <label>Estado</label>
+                                        <select v-model="form.estado" class="form-control">
+                                            <option disabled value="">Seleccione un elemento</option>
+                                            <option v-for="item in form.estados" :value="item.id" :key="item.id">
+                                                @{{ item.description }}
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="col-md-12">
                                     <h4 class="text-center">Detalle de Asientos</h4>
@@ -215,7 +223,9 @@
 			cuentas:[],
 			arrayDetalle:[],
             buscar: '',
-			arrayCuentas:[]
+			arrayCuentas:[],
+            estados: {!! $estados->toJson() !!},
+            estado: ''
         };
 </script>
 <script src="{{ asset('js/asiento.js') }}"></script>

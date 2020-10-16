@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use TCG\Voyager\Models\Permission;
 use TCG\Voyager\Models\Role;
+use App\Models\Estado;
 
 class PermissionRoleTableSeeder extends Seeder
 {
@@ -13,6 +14,19 @@ class PermissionRoleTableSeeder extends Seeder
      */
     public function run()
     {
+        //creacion de mis permisos
+        $estados = Estado::all();
+        $llaves = $estados->map(function ($estado, $key) {
+            return 'estado_'.$estado->name.'_asiento';
+        });
+
+        foreach ($llaves as $key) {
+            Permission::firstOrCreate([
+                'key'        => $key,
+                'table_name' => 'estados',
+            ]);
+        }
+        //permisos de voyager
         $role = Role::where('name', 'admin')->firstOrFail();
 
         $permissions = Permission::all();

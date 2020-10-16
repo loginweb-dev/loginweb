@@ -20,7 +20,8 @@ class EstadosTableSeeder extends Seeder
             0 =>
             array (
                 'id' => 1,
-                'name' => 'BORRADOR',
+                'name' => 'borrador',
+                'description' => 'BORRADOR',
                 'created_at' => '2020-10-09 21:32:16',
                 'updated_at' => '2020-10-09 21:32:16',
                 'deleted_at' => NULL,
@@ -28,7 +29,8 @@ class EstadosTableSeeder extends Seeder
             1 =>
             array (
                 'id' => 2,
-                'name' => 'REVISION',
+                'name' => 'revision',
+                'description' => 'REVISION',
                 'created_at' => '2020-10-09 21:32:16',
                 'updated_at' => '2020-10-09 21:32:16',
                 'deleted_at' => NULL,
@@ -36,7 +38,8 @@ class EstadosTableSeeder extends Seeder
             2 =>
             array (
                 'id' => 3,
-                'name' => 'APROBACION',
+                'name' => 'aprobacion',
+                'description' => 'APROBACION',
                 'created_at' => '2020-10-09 21:32:22',
                 'updated_at' => '2020-10-09 21:32:22',
                 'deleted_at' => NULL,
@@ -44,13 +47,13 @@ class EstadosTableSeeder extends Seeder
             3 =>
             array (
                 'id' => 4,
-                'name' => 'RECHASO',
+                'name' => 'rechaso',
+                'description' => 'RECHASO',
                 'created_at' => '2020-10-09 21:32:22',
                 'updated_at' => '2020-10-09 21:32:22',
                 'deleted_at' => NULL,
             )
         ));
-
 
     }
 }

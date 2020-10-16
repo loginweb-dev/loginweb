@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use TCG\Voyager\Facades\Voyager;
 use App\FormFields\Tracking;
+use App\Models\Estado;
+use App\Observers\EstadoObserver;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -30,5 +32,7 @@ class AppServiceProvider extends ServiceProvider
         Voyager::addAction(\App\Actions\BlockEdit::class);
         Voyager::addAction(\App\Actions\Block::class);
         Voyager::addAction(\App\Actions\Cuenta::class);
+
+        Estado::observe(EstadoObserver::class);
     }
 }

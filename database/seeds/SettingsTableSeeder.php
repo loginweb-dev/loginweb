@@ -283,7 +283,32 @@ class SettingsTableSeeder extends Seeder
                 'group'        => 'RRSS',
             ])->save();
         }
-        
+
+        // ---------------------Contable ------------------------------------
+        // ------------------------------------------------------------
+        $count=1;
+        $setting = $this->findSetting('contable.rechaso');
+        if (!$setting->exists) {
+            $setting->fill([
+                'display_name' => 'Rechazar Asiento',
+                'value'        => 'rechaso',
+                'details'      => null,
+                'type'         => 'text',
+                'order'        => $count++,
+                'group'        => 'contable',
+            ])->save();
+        }
+        $setting = $this->findSetting('contable.aprobacion');
+        if (!$setting->exists) {
+            $setting->fill([
+                'display_name' => 'Aprobar Aciento',
+                'value'        => 'aprobacion',
+                'details'      => null,
+                'type'         => 'text',
+                'order'        => $count++,
+                'group'        => 'contable',
+            ])->save();
+        }
     }
 
     /**

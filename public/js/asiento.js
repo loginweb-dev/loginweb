@@ -12,6 +12,7 @@ var app = new Vue({
     },
     mounted() {
       this.listarCuentas(this.form.buscar);
+      console.log(this.form)
     },
     computed: {
         totalDebe() {
@@ -197,6 +198,7 @@ var app = new Vue({
                 'ufv': this.form.ufv,
                 'tipo': this.form.tipo_cambio,
                 'glosa': this.form.glosa,
+                'estado': this.form.estado
                 })
                 .then(res => {
                     if(res.data && res.data.saved) {

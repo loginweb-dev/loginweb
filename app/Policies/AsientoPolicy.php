@@ -25,7 +25,7 @@ class AsientoPolicy
      */
     public function viewAny(User $user, Asiento $asiento)
     {
-        return ($user->id === $asiento->user_id) || $user->hasPermission('browse_asientos');
+        return ($user->id === $asiento->user_id) || ($user->hasPermission('browse_asientos') && $asiento->estado_id != 1);
     }
 
     /**
@@ -60,7 +60,7 @@ class AsientoPolicy
      */
     public function update(User $user, Asiento $asiento)
     {
-        return ($user->id === $asiento->user_id) || $user->hasPermission('edit_asientos');
+        return ($user->id === $asiento->user_id) && ($user->hasPermission('edit_asientos') && $asiento->estado_id === 1);
     }
 
     /**
@@ -99,8 +99,14 @@ class AsientoPolicy
         //
     }
 
-    public function acciones(User $user)
+    public function acciones(User $user, Asiento $asiento)
     {
-        return $user->hasRole('gerente');
+        $estado = \App\Models\Estado::where('name',setting('contable.aprobacion'))->first()->id;
+        return $user->hasRole('gerente') && ($estado != $asiento->estado_id);
+    }
+
+    public function rechaso(User $user)
+    {
+        return $user->hasRole('gerente') && $user->hasPermission('estado_rechaso_asiento');
     }
 }

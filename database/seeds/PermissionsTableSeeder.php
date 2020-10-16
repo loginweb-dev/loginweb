@@ -43,15 +43,5 @@ class PermissionsTableSeeder extends Seeder
 
         Permission::generateFor('estados');
 
-        //agregando permisos extras para los asientos
-        $keys = [
-            'rechasar_asientos'
-        ];
-        foreach ($keys as $key) {
-            Permission::firstOrCreate([
-                'key'        => $key,
-                'table_name' => 'asientos',
-            ]);
-        }
     }
 }
